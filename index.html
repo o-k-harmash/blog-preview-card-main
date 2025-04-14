@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- displays site properly based on user's device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- description -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <!-- CSS reset and main stylesheet -->
+    <link rel="stylesheet" href="./reset.css" />
+    <link rel="stylesheet" href="./index.css" />
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Frontend Mentor | Blog preview card</title>
+  </head>
+  <body>
+    <div class="container">
+      <main>
+        <article class="card">
+          <!-- Header of the card: includes the article image, tags, and publication date -->
+          <header class="card__header">
+            <!-- Article cover image -->
+            <img
+              src="./assets/images/illustration-article.svg"
+              alt="Preview of the article"
+            />
+
+            <!-- Tag list -->
+            <ul>
+              <li>
+                <a class="tag" href="#">Learning</a>
+              </li>
+              <li>
+                <a class="tag" href="#">HTML</a>
+              </li>
+              <li>
+                <a class="tag" href="#">CSS</a>
+              </li>
+              <li>
+                <a class="tag" href="#">Beginning</a>
+              </li>
+              <li>
+                <a class="tag" href="#">Web</a>
+              </li>
+            </ul>
+
+            <!-- Publication date -->
+            <time datetime="2023-12-21">Published 21 Dec, 2023</time>
+
+            <!-- Article title -->
+            <h1>HTML & CSS foundations</h1>
+          </header>
+
+          <!-- Main content: excerpt -->
+          <section class="card__body">
+            <!-- Article preview/summary -->
+            <p>
+              These languages are the backbone of every website, defining
+              structure, content, and presentation.
+            </p>
+          </section>
+
+          <!-- Footer: author info -->
+          <footer class="card__footer">
+            <!-- Author avatar -->
+            <img
+              src="./assets/images/image-avatar.webp"
+              alt="Photo of Greg Hooper"
+            />
+
+            <!-- Author name with cite element for semantic reference -->
+            <p>
+              <cite>Mendel Yitzhak Rabinowitz-Silverstein</cite>
+            </p>
+          </footer>
+        </article>
+      </main>
+
+      <footer class="attribution">
+        Challenge by
+        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+          >Frontend Mentor</a
+        >. Coded by <a href="https://github.com/o-k-harmash">o-k-harmash</a>.
+      </footer>
+    </div>
+  </body>
+</html>

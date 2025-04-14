@@ -1,0 +1,182 @@
+/* 
+====================================================
+🧠 Text Overflow with `nowrap` inside Flex Child
+====================================================
+
+🧩 The Situation:
+You're using `white-space: nowrap` on a <p> tag deep inside a layout.
+The <body> is a flex container (`display: flex`), and `.container` is its child.
+
+This causes an issue where the container refuses to shrink below the width of the <p>,
+breaking responsiveness or layout fit.
+
+💥 The Problem:
+By default, flex items (`.container`) have `min-width: auto`,
+which prevents their content from shrinking below its intrinsic width.
+
+This means that if a descendant (like a <p> with `white-space: nowrap`)
+requires more space than the container is allowed to take, it will
+**push back** and stop the container from shrinking,
+breaking any expected wrapping or ellipsis behavior.
+
+✅ The Fix:
+Explicitly set `min-width: 0` (or a fixed `min-width`) on the **flex child** (in this case, `.container`),
+so that its contents are allowed to shrink and `text-overflow: ellipsis` can take effect properly.
+
+🔗 See full explanation and visual demo here:
+https://css-tricks.com/flexbox-truncated-text/
+
+🛠 Example of the fix in your code:
+.container {
+  min-width: 17.375rem; // ensures ellipsis can engage inside a flex child
+}
+
+📌 Without this, the nowrap text won't allow the container to shrink below its full width.
+*/
+
+:root {
+  --font-family: "Outfit";
+
+  --font-weight_light: 500;
+  --font-weight_strong: 800;
+
+  --font-size_light: 0.75rem; /* 12px */
+  --font-size_medium: 0.9375rem; /* 15px */
+  --font-size_strong: 1.375rem; /* 22px */
+
+  --color-yellow: hsl(47, 88%, 63%);
+  --color-white: hsl(0, 0%, 100%);
+  --color-gray_500: hsl(0, 0%, 42%);
+  --color-gray_950: hsl(0, 0%, 7%);
+
+  --background_primary: var(--color-yellow);
+  --background_secondary: var(--color-white);
+
+  --color_primary: var(--color-gray_950);
+  --color_secondary: var(--color-gray_500);
+
+  --font-weight_primary: var(--font-weight_strong);
+  --font-weight_secondary: var(--font-weight_light);
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  color: var(--color_primary);
+  font-family: var(--font-family), sans-serif;
+  background-color: var(--background_primary);
+}
+
+.container {
+  margin: auto;
+  padding: 1.75rem;
+  align-self: center;
+  /* ✅ Critical for correct ellipsis behavior in texts with nowrap */
+  min-width: 17.375rem;
+  max-width: 27.375rem;
+}
+
+main {
+  margin-bottom: 2.125rem;
+}
+
+.card {
+  padding: 1.375rem;
+  border-radius: 1.125rem;
+  font-weight: var(--font-weight_strong);
+  border: 1px solid var(--color_primary);
+  background-color: var(--background_secondary);
+  box-shadow: 0.5rem 0.5rem 0.3125rem var(--color_primary);
+}
+
+.tag {
+  display: flex;
+  height: inherit;
+  align-items: center;
+  border-radius: 0.25rem;
+  padding-inline: 0.875rem;
+  background-color: var(--background_primary);
+}
+
+.card__header img {
+  width: 100%;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+  max-height: 12.625rem;
+}
+
+.card__header ul {
+  display: flex;
+  gap: 0.3125rem;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-bottom: 1rem;
+}
+
+.card__header li {
+  height: 1.75rem;
+  font-size: var(--font-size_light);
+  font-weight: var(--font-weight_strong);
+}
+
+.card__header time {
+  font-size: var(--font-size_light);
+  font-weight: var(--font-weight_light);
+}
+
+.card__header h1 {
+  margin-block: 1.75rem;
+  font-size: var(--font-size_strong);
+  font-weight: var(--font-weight_strong);
+}
+
+.card__body p {
+  line-height: 1.5rem;
+  margin-bottom: 1.875rem;
+  color: var(--color_secondary);
+  font-size: var(--font-size_medium);
+  font-weight: var(--font-weight_secondary);
+}
+
+.card__footer {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.75rem;
+  align-items: center;
+}
+
+.card__footer img {
+  max-width: 2rem;
+  max-height: 2rem;
+}
+
+.card__footer p {
+  overflow: hidden;
+
+  /* ❗ Critical: Prevents line breaks but may cause layout issues without min-width on parent */
+  white-space: nowrap;
+
+  /* 📌 Enables text truncation with an ellipsis */
+  text-overflow: ellipsis;
+
+  /* 🔎 Explanation:
+         Without min-width on the parent container, this paragraph might "refuse" to shrink,
+         preventing the container from adapting properly. See the note above.
+         This issue is especially noticeable when the container is a flex child.
+         More details: https://css-tricks.com/flexbox-truncated-text/
+      */
+
+  line-height: initial;
+  font-size: var(--font-size_light);
+}
+
+/* Feel free to remove these styles or customise in your own stylesheet 👍 */
+.attribution {
+  font-size: 11px;
+  text-align: center;
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
